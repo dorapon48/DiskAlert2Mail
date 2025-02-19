@@ -18,7 +18,11 @@ Cで書いてみる
 ubuntu上からvscodeを開いたら行けた
 コンフィグはini形式で書く
 
-構造は，diskAlert.h, sendMail.h, diskAlert2Mail.cの3つでやる
+構造は，diskAlert.h, sendMail.h, conf.h, diskAlert2Mail.cの4つでやる
 diskAlert.hはコンフィグからアラートを出すか決定する．
 sendMail.hは指定したメールアドレスにメールを送信する．
+conf.hはコンフィグファイルの読み込みを行い，使いやすくする
 diskAlert2Mail.cは以上の統合
+
+まず，conf.h
+modeはいらん
