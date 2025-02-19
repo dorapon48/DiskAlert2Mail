@@ -1,5 +1,5 @@
-#ifndef DISK_ALERT_2_MAIL_ENT_H
-#define DISK_ALERT_2_MAIL_ENT_H
+#ifndef DM_INI_PARSER_H
+#define DM_INI_PARSER_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,12 +24,8 @@ typedef struct {
  * @brief INIファイルを解析して設定を読み取る
  * 
  * @param file INIファイルのパス
- * @return FILE
+ * @return INiConfig
  */
-FILE set_dm_inifile(const char *file) FILE {
-    FILE *f;
-    f = fopen(file, "r");
-    return f;
-}
+IniConfig read_dm_ini(const char *__file)
 
 #endif // INI_PARSER_H
