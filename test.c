@@ -4,7 +4,7 @@
 #include <sys/statvfs.h>
 #include <string.h>
 
-const char *excluded_devices[] = {"none", "tmpfs", "devtmpfs", "sysfs", "proc", "cgroup", NULL};
+const char *excluded_devices[] = {"none", "tmpfs", "devtmpfs", "sysfs", "proc", "cgroup", "snapfuse", NULL};
 
 
 int is_excluded_device(const char *device) {

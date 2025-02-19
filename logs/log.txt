@@ -16,4 +16,9 @@
 Cで書いてみる
 インテリセンスが効かないので何とかしてみる
 ubuntu上からvscodeを開いたら行けた
+コンフィグはini形式で書く
 
+構造は，diskAlert.h, sendMail.h, diskAlert2Mail.cの3つでやる
+diskAlert.hはコンフィグからアラートを出すか決定する．
+sendMail.hは指定したメールアドレスにメールを送信する．
+diskAlert2Mail.cは以上の統合
