@@ -14,15 +14,15 @@ using namespace std;
 class DMini {
 
     struct DiskConfig {
-        string sectionName;
-        string mountPath;
-        int diskUsageMaxLimit;
+        string sectionName = "";
+        string mountPath = "";
+        int diskUsageMaxLimit = INT32_MIN;
     };
 
     struct IniConfig {
-        int diskUsageMaxLimit;
-        string toMail;
-        string fromMail;
+        int diskUsageMaxLimit = INT32_MIN;
+        string toMail = "";
+        string fromMail = "";
         DiskConfig disks[MAX_DISKS];
         int diskCount = 0;
     };
@@ -68,6 +68,9 @@ class DMini {
                 }
             }
         }
+        if (!is_valid()){
+            return false;
+        }
         return true;
     }
 
@@ -109,10 +112,24 @@ class DMini {
 
     /**
      * @brief configの値が正しいか確認する
-     * 
+     * @return success true
      */
     bool is_valid() {
-
+        // globalセクションの条件
+        // diskUsageMaxLimitは0 <= x <= 100
+        if (config.diskUsageMaxLimit < 0 || config.diskUsageMaxLimit > 100){
+            cerr << "section [global] invalid value(0 <= x <= 100) diskUsageMaxLimit: " << config.diskUsageMaxLimit << endl;
+            return false;
+        }
+        // globalセクション以外の条件
+        for (int i = 0; i < config.diskCount; i++){
+            DiskConfig d = config.disks[i];
+            if (d.diskUsageMaxLimit != INT32_MIN && (d.diskUsageMaxLimit < 0 || d.diskUsageMaxLimit > 100)){
+                cerr << "section [" << d.sectionName << "] invalid value(0 <= x <= 100) diskUsageMaxLimit: " << d.diskUsageMaxLimit << endl;
+                return false;
+            }
+        }
+        return true;
     }
 
     // 設定の表示（デバッグ用）
@@ -131,9 +148,14 @@ class DMini {
 };
 
 int main() {
-    DMini dmini("diskalert2mail.ini");
+    //DMini dmini("diskalert2mail.ini");
 
-    dmini.print_config();
+    DMini test = DMini();
+    if (!test.read_ini("diskalert2mail.ini")) {
+        return 1;
+    }
+
+    test.print_config();
 
     return 0;
 }
