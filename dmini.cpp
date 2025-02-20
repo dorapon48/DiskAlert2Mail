@@ -28,14 +28,18 @@ class DMini {
     };
 
     IniConfig config;
-public:
+    public:
     // コンストラクタ
     DMini(const string& filename) {
         read_ini(filename);
     }
     DMini() {}
 
-    // INIファイルの読み込み
+    /**
+     * @brief 入力されたiniファイルの読み取り
+     * @param iniファイルのパス
+     * @return success true
+     */
     bool read_ini(const string& filename) {
         ifstream file(filename);
         if (!file) {
@@ -60,7 +64,6 @@ public:
                     key.erase(key.find_last_not_of(" \t") + 1); // 末尾の空白削除
                     value.erase(0, value.find_first_not_of(" \t")); // 先頭の空白削除
 
-                    // `set_config` で設定を適用
                     set_config(section, key, value);
                 }
             }
@@ -71,6 +74,9 @@ public:
     /**
      * @brief 入力された値をconfigに登録する
      * @param section セクション
+     * @param key キー
+     * @param value 値
+     * @return success true
      */
     bool set_config(string section, string key, string value) {
         if (section == "global") {
@@ -99,6 +105,14 @@ public:
         }
 
         return false;
+    }
+
+    /**
+     * @brief configの値が正しいか確認する
+     * 
+     */
+    bool is_valid() {
+
     }
 
     // 設定の表示（デバッグ用）
