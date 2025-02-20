@@ -26,6 +26,6 @@ typedef struct {
  * @param file INIファイルのパス
  * @return INiConfig
  */
-IniConfig read_dm_ini(const char *__file)
+IniConfig read_dm_ini(const char *__file);
 
 #endif // INI_PARSER_H

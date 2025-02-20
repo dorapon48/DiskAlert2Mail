@@ -21,7 +21,7 @@ IniConfig read_dm_ini(const char *filename) {
         if (line[0] == '[') { // セクション判定
             sscanf(line, "[%49[^]]]", section);
         } else if (strchr(line, '=')) { // key=value の行
-            char key[50], value[256];
+            char *key, *value;
             sscanf(line, "%49[^=] = %255[^\n]", key, value);
 
             if (strcmp(section, "global") == 0) {
@@ -32,7 +32,7 @@ IniConfig read_dm_ini(const char *filename) {
                 } else if (strcmp(key, "fromMail") == 0) {
                     strncpy(config.fromMail, value, MAX_PATH_LENGTH);
                 }
-            } else if (strncmp(section, "disk", 4) == 0 && config.diskCount < MAX_DISKS) {
+            } else if (config.diskCount < MAX_DISKS) {
                 DiskConfig *disk = &config.disks[config.diskCount];
                 if (strcmp(key, "mountPath") == 0) {
                     strncpy(disk->mountPath, value, MAX_PATH_LENGTH);
