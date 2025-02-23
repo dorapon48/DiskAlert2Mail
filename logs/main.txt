@@ -6,3 +6,8 @@ sub:
 
 how:
 一定時間ごとにdfコマンドを実行し，値を探知する．
+
+構成
+diskalert2mail.ini: 設定ファイル
+iniconfig.hpp: 設定ファイルの形式
+dmini.cpp: 設定ファイル読み取り

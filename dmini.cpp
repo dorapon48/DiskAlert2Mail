@@ -138,6 +138,14 @@ bool DMini::is_valid() {
     return true;
 }
 
+/**
+ * @brief configを返す
+ * @return IniConfig
+ */
+IniConfig DMini::get_config(){
+    return config;
+}
+
 // 設定の表示（デバッグ用）
 void DMini::print_config() const {
     std::cout << "[global]" << std::endl;
@@ -152,16 +160,16 @@ void DMini::print_config() const {
     }
 }
 
-int main() {
-    //DMini dmini("diskalert2mail.ini");
+// int main() {
+//     //DMini dmini("diskalert2mail.ini");
 
-    DMini test = DMini();
-    std::string tt = "diskalert2mail.ini";
-    if (!test.read_ini(tt)) {
-        return 1;
-    }
+//     DMini test = DMini();
+//     std::string tt = "diskalert2mail.ini";
+//     if (!test.read_ini(tt)) {
+//         return 1;
+//     }
 
-    test.print_config();
+//     test.print_config();
 
-    return 0;
-}
+//     return 0;
+// }
