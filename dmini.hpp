@@ -12,7 +12,6 @@ class DMini {
 
     // method
     std::string trim(const std::string& str);
-    bool set_config(std::string section, std::string key, std::string value);
     void set_config_global(std::string key, std::string value);
     void set_config_section(std::string section, std::string key, std::string value);
     void set_diskconfig_byid(int disk_id, std::string key, std::string value);
