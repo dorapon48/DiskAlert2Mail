@@ -11,7 +11,11 @@ class DMini {
     IniConfig config;
 
     // method
+    std::string trim(const std::string& str);
     bool set_config(std::string section, std::string key, std::string value);
+    void set_config_global(std::string key, std::string value);
+    void set_config_section(std::string section, std::string key, std::string value);
+    void set_diskconfig_byid(int disk_id, std::string key, std::string value);
     bool is_valid();
 
     public:
@@ -20,7 +24,7 @@ class DMini {
     DMini();
 
     // method
-    bool read_ini(std::string& filename);
+    bool read_ini(const std::string& filename);
 
     // getter
     IniConfig get_config();

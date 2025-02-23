@@ -4,13 +4,9 @@
 #include <map>
 #include "dmini.hpp"
 
-// 最大の探知diskは100個
-#define MAX_DISKS 100
-
 /**
  * @brief DiskAlert2Mailのiniファイルを読み込む
  */
-IniConfig config;
 // コンストラクタ
 DMini::DMini(std::string &filename) {
     read_ini(filename);
@@ -18,11 +14,26 @@ DMini::DMini(std::string &filename) {
 DMini::DMini() {}
 
 /**
+ * @brief 文字列の前後の空白を除去
+ * @param str 文字列
+ * @return 前後の空白を取り除いた文字列
+ */
+std::string DMini::trim(const std::string& str) {
+    size_t start = str.find_first_not_of(" \t");
+    size_t end = str.find_last_not_of(" \t");
+    std::string r = "";
+    if (start != std::string::npos){
+        r = str.substr(start, end - start + 1);
+    }
+    return r;
+}
+
+/**
  * @brief 入力されたiniファイルの読み取り
  * @param iniファイルのパス
  * @return success true
  */
-bool DMini::read_ini(std::string& filename) {
+bool DMini::read_ini(const std::string& filename) {
     std::ifstream file(filename);
     if (!file) {
         std::cerr << "Failed to open INI file: " << filename << std::endl;
@@ -30,10 +41,8 @@ bool DMini::read_ini(std::string& filename) {
     }
 
     std::string line, section;
-
     while (getline(file, line)) {
-        line.erase(0, line.find_first_not_of(" \t")); // 先頭の空白を削除
-        line.erase(line.find_last_not_of(" \t") + 1); // 末尾の空白を削除
+        line = trim(line);
         if (line.empty() || line[0] == ';' || line[0] == '#') continue; // コメント行をスキップ
 
         if (line[0] == '[' && line.back() == ']') { // セクション開始
@@ -41,12 +50,14 @@ bool DMini::read_ini(std::string& filename) {
         } else { // キーと値
             size_t pos = line.find('=');
             if (pos != std::string::npos) {
-                std::string key = line.substr(0, pos);
-                std::string value = line.substr(pos + 1);
-                key.erase(key.find_last_not_of(" \t") + 1); // 末尾の空白削除
-                value.erase(0, value.find_first_not_of(" \t")); // 先頭の空白削除
+                std::string key = trim(line.substr(0, pos));
+                std::string value = trim(line.substr(pos + 1));
 
-                set_config(section, key, value);
+                if (section == "global"){
+                    set_config_global(key, value);
+                } else {
+                    set_config_section(section, key, value);
+                }
             }
         }
     }
@@ -57,39 +68,52 @@ bool DMini::read_ini(std::string& filename) {
 }
 
 /**
- * @brief 入力された値をconfigに登録する
+ * @brief globalセクションの設定
+ * @param key キー
+ * @param value 値
+ */
+void DMini::set_config_global(std::string key, std::string value){
+    if (key == "diskUsageMaxLimit") config.disk_usage_max_limit = std::stoi(value);
+    else if (key == "toMail") config.to_mail = value;
+    else if (key == "fromMail") config.from_mail = value;
+    else std::cout << "warning: section [global] The key is not recognized and will be ignored. key: "<< key << std::endl;
+}
+
+/**
+ * @brief そのほかのセクションの設定
  * @param section セクション
  * @param key キー
  * @param value 値
- * @return success true
  */
-bool DMini::set_config(std::string section, std::string key, std::string value) {
-    if (section == "global") {
-        if (key == "diskUsageMaxLimit") config.disk_usage_max_limit = std::stoi(value);
-        else if (key == "toMail") config.to_mail = value;
-        else if (key == "fromMail") config.from_mail = value;
-        return true;
-    }
-
-    // ディスク設定の更新
+void DMini::set_config_section(std::string section, std::string key, std::string value){
+    int index = -1;
+    // すでに存在するセクションか確認
     for (int i = 0; i < config.disk_count; i++) {
-        if (config.disks[i].section_name == section) {
-            if (key == "mountPath") config.disks[i].mount_path = value;
-            else if (key == "diskUsageMaxLimit") config.disks[i].disk_usage_max_limit = stoi(value);
-            return true;
+        if (config.disks[i].section_name == section){
+            index = i;
         }
     }
-
-    // 新しいディスクセクションの追加
-    if (config.disk_count < MAX_DISKS) {
-        config.disks[config.disk_count].section_name = section;
-        if (key == "mountPath") config.disks[config.disk_count].mount_path = value;
-        else if (key == "diskUsageMaxLimit") config.disks[config.disk_count].disk_usage_max_limit = stoi(value);
+    if (index != -1){ // ディスク設定の更新
+        set_diskconfig_byid(index, key, value);
+    } else { // 新しいディスクセクションの追加
+        DiskConfig disk;
+        disk.section_name = section;
+        config.disks.push_back(disk);
+        set_diskconfig_byid(config.disk_count, key, value);
         config.disk_count++;
-        return true;
     }
+}
 
-    return false;
+/**
+ * configのdisksのdiskconfigを設定する．
+ * @param disk_id ディスクのインデックス
+ * @param key キー
+ * @param value 値
+ */
+void DMini::set_diskconfig_byid(int disk_id, std::string key, std::string value){
+    if (key == "mountPath") config.disks[disk_id].mount_path = value;
+    else if (key == "diskUsageMaxLimit") config.disks[disk_id].disk_usage_max_limit = stoi(value);
+    else std::cout << "warning: section [" << config.disks[disk_id].section_name << "] The key is not recognized and will be ignored. key: "<< key << std::endl;
 }
 
 /**
