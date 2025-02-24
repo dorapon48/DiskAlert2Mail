@@ -11,4 +11,5 @@ services:
         USER_NAME: "${USER_NAME}"
     volumes:
       - ./main:/app
+      - /:/mnt:ro
     tty: true
