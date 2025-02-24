@@ -1,7 +1,7 @@
 # 全体
 [config]
 # ディスク使用率通知の下限
-diskUsageMaxLimit = 44
+diskUsageMaxLimit = 80
 
 # メールの送り先
 toMail = "test"
