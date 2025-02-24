@@ -1,0 +1,24 @@
+FROM python:3.13.2-bookworm
+
+# timezone
+RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+
+# apt
+RUN apt-get update && \
+    apt-get install -y sudo python-is-python3
+
+# docker root setting
+# 開発用
+ARG GID
+ARG UID
+ARG USER_NAME
+RUN groupadd --gid ${GID} ${USER_NAME} && \
+    useradd --uid ${UID} --gid ${GID} -m ${USER_NAME} && \
+    echo $USER_NAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USER_NAME && \
+    chmod 0440 /etc/sudoers.d/$USER_NAME
+
+# python
+WORKDIR /app/
+RUN pip install --upgrade pip
+COPY main/requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
