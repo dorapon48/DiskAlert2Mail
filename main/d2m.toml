@@ -1,12 +1,12 @@
 # 全体
-[global]
+[config]
 # ディスク使用率通知の下限
-diskUsageMaxLimit = 80
+diskUsageMaxLimit = 44
 
 # メールの送り先
-toMail = ""
+toMail = "test"
 # メールの送り主
-fromMail = ""
+fromMail = "test"
 
 # 各種設定
 [[disks]]
@@ -15,7 +15,7 @@ diskName = "test disk"
 # dfで表示される一番右の部分
 mountPath="/path/to/disk"
 # ディスク使用率通知の下限(こちらが優先)
-diskUsageMaxLimit = 50
+#diskUsageMaxLimit = 50
 
 [[disks]]
 diskName = "test disk"
