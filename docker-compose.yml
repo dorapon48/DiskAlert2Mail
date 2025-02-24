@@ -1,6 +1,6 @@
 services:
   main:
-    container_name: "main"
+    container_name: "d2m_main"
     user: "${USER_NAME}"
     build:
       context: "."
