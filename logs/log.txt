@@ -67,3 +67,6 @@ dockerで構築するぞ
 ini以外で使いやすい設定ファイルがないか探す
 tomlで書いてみよう
 python, dockerの初期設定完了
+pythonでtomlを読み込む
+なんかエラーすると思ったら，python d2m.tomlとかしてた，馬鹿がよ
+安全そうな方法を探してみる
