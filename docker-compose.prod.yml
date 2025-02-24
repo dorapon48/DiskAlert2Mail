@@ -1,0 +1,10 @@
+services:
+  main:
+    container_name: "d2m_main"
+    build:
+      context: "."
+      dockerfile: ./docker/main/dockerfile.prod
+    volumes:
+      - ./main:/app
+      - /:/mnt:ro
+    tty: true

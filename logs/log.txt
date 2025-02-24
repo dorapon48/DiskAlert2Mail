@@ -75,4 +75,7 @@ docker compose のroでマウントすると読み込み専用になって安全
 できているっぽいが，出力がおかしいみたいなので修正すること
 開発用と本番用のdockerファイルを分けてみる
 別の方法がないかと思ったが，結局ファイルを分けた方が簡単ですね
-
+devとprodを分けた
+docker compose -f docker-compose.prod.yml build
+docker compose -f docker-compose.prod.yml up
+で本番用が立ち上がる
