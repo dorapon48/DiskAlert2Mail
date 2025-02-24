@@ -17,7 +17,6 @@ class Config(BaseModel):
 
     @model_validator(mode="after")
     def apply_global_disk_limit(self):
-        print ("test")
         for disk in self.disks:
             if disk.diskUsageMaxLimit is None:  # diskUsageMaxLimit が指定されていない場合
                 disk.diskUsageMaxLimit = self.config.diskUsageMaxLimit  # グローバル値を代入
