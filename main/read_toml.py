@@ -27,5 +27,3 @@ def read_toml():
     except ValueError as e:
         print("Validation Error:", e)
         return None
-
-read_toml()
