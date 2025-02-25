@@ -91,4 +91,10 @@ pydanticで大体の判定ができそうね
 2025/02/25
 メール
 d2m.tomlは無視しておく
-なぜかgitignoreが効かない
+なぜかgitignoreが効かない -> キャッシュが残ってるせいらしい
+動作周期があった方がよさそうなので追加
+sendGridでやってみる
+sendGrid個人で使えないわ
+gmailアカウントを作成してやりましょう...ok
+アプリパスワードを設定
+toml.exampleにsmtp等を追加

@@ -4,9 +4,19 @@
 diskUsageMaxLimit = 80
 
 # メールの送り先
-toMail = "test"
+toMail = ""
 # メールの送り主
-fromMail = "test"
+fromMail = ""
+
+# smtpサーバーのアドレス
+smtpServerAdress = ""
+# smtpサーバーのユーザー
+smtpServerUser = ""
+# smtpサーバーのパスワード
+smtpServerPassword = ""
+
+# 動作間隔(hour)
+executionCycle = 24
 
 # 各種設定
 [[disks]]

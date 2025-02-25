@@ -7,9 +7,12 @@ class DiskConfig(BaseModel):
     diskUsageMaxLimit: Optional[int] = Field(None, ge=0, le=100)
 
 class GlobalConfig(BaseModel):
-    diskUsageMaxLimit: int = Field(..., ge=0, le=100)
     toMail: str
     fromMail: str
+    smtpServerAdress: str
+    smtpServerUser: str
+    smtpServerPassword: str
+    diskUsageMaxLimit: int = Field(..., ge=0, le=100)
 
 class Config(BaseModel):
     config: GlobalConfig

@@ -28,4 +28,4 @@ def read_toml():
         print("Validation Error:", e)
         return None
 
-# read_toml()
+read_toml()
