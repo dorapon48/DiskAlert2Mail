@@ -6,16 +6,24 @@ class DiskConfig(BaseModel):
     mountPath: str
     diskUsageMaxLimit: Optional[int] = Field(None, ge=0, le=100)
 
+class MailConfig(BaseModel):
+    toAddress: str
+    fromAddress: str
+    smtpAddress: str
+    smtpPort: int
+    smtpUser: str
+    smtpPassword: str
+
 class GlobalConfig(BaseModel):
-    toMail: str
-    fromMail: str
-    smtpServerAdress: str
-    smtpServerUser: str
-    smtpServerPassword: str
+    executionCycle: int = Field(..., ge=1)
     diskUsageMaxLimit: int = Field(..., ge=0, le=100)
 
 class Config(BaseModel):
+    """
+    configの形式指定
+    """
     config: GlobalConfig
+    mail: MailConfig
     disks: List[DiskConfig]
 
     @model_validator(mode="after")

@@ -4,16 +4,19 @@
 diskUsageMaxLimit = 80
 
 # メールの送り先
-toMail = ""
+toAddress = ""
 # メールの送り主
-fromMail = ""
+fromAddress = ""
 
 # smtpサーバーのアドレス
-smtpServerAdress = ""
+smtpAddress = ""
+# smtpサーバーのポート
+smtpPort = 587
 # smtpサーバーのユーザー
-smtpServerUser = ""
+smtpUser = ""
 # smtpサーバーのパスワード
-smtpServerPassword = ""
+smtpPassword = ""
+
 
 # 動作間隔(hour)
 executionCycle = 24
