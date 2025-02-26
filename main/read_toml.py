@@ -18,7 +18,7 @@ def read_toml():
     # tomlが正しい型をしているか確認
     try:
         config = Config.model_validate(config)
-        print(config)
+        # print(config)
         print("Valid TOML!")
         return config
     except ValidationError as e:

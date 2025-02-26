@@ -126,3 +126,4 @@ Disk Alert To Mail
 マウント先: /test/test
 使用率　　: 80%
 残り容量　: 50G
+

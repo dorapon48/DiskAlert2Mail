@@ -1,19 +1,23 @@
 from typing import List
-from model import DiskConfig, DiskUseage, MailBody
+from model import DiskConfig, DiskUseage, MailBody, GlobalConfig
 
 from read_toml import read_toml
 from get_df import get_df
+from send_mail import send_mail
 
 
-def create_mail_body_text(mail_body_list: List[MailBody]):
+def create_mail_body_text(mail_body_list: List[MailBody], gconf: GlobalConfig):
     """
     メールの本文を作成する
     """
-    msg = """
-Disk Alert To Mail
-以下のディスクの使用率が設定された値を上回りました．
-
-"""
+    msg = "Disk Alert To Mail\n"
+    msg += "====サーバー情報====\n"
+    msg += "サーバー名: " + gconf.serverName + "\n"
+    msg += "サーバーIP: " + gconf.serverIP + "\n"
+    msg += "\n"
+    msg += "====お知らせ====\n"
+    msg += "以下のディスクの使用率が設定された値を上回りました．\n"
+    msg += "\n"
     for m in mail_body_list:
         c = m.config
         d = m.df
@@ -45,9 +49,13 @@ def check_disk(disk: DiskConfig, df_list: List[DiskUseage]):
     print("waring: [" + disk.mountPath + "] disk does not exist")
     return -1
 
-if __name__ == "__main__":
+def main():
     config = read_toml()
     df = get_df()
+
+    if (config == None):
+        print("An error occurred while loading d2m.toml")
+        return 0
 
     # 範囲外のディスクを抜き出す
     overd_disks: List[MailBody] = []
@@ -55,8 +63,21 @@ if __name__ == "__main__":
         df_index = check_disk(d, df)
         if df_index != -1:
             overd_disks.append(MailBody(config=d, df=df[df_index]))
-    msg = create_mail_body_text(overd_disks)
+    # 範囲外のディスクがないなら終了
+    if (overd_disks == []):
+        return 0
+    
+    msg = create_mail_body_text(overd_disks, config.config)
     print(msg)
+    send_mail(config.mail, msg, "Disk Alert to Mail")
+    return 0
+
+    
+
+if __name__ == "__main__":
+    main()
+        
+    
 
     
 
