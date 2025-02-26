@@ -48,5 +48,5 @@ class DiskUseage(BaseModel):
     mounted_on: str
 
 class MailBody(BaseModel):
-    df: DiskUseage
     config: DiskConfig
+    df: DiskUseage
