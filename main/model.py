@@ -24,7 +24,6 @@ class MailConfig(BaseModel):
 class GlobalConfig(BaseModel):
     serverName: str
     serverIP: str
-    executionCycle: int = Field(..., ge=1)
     diskUsageMaxLimit: int = Field(..., ge=0, le=100)
 
 class Config(BaseModel):

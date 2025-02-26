@@ -5,10 +5,18 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 # apt
 RUN apt-get update && \
-    apt-get install -y python-is-python3
+    apt-get install -y python-is-python3 cron
+
+# cron
+COPY main/crontab /etc/cron.d/disk-alert-2-mail
+RUN chmod 0644 /etc/cron.d/disk-alert-2-mail && \
+    crontab /etc/cron.d/disk-alert-2-mail
 
 # python
 WORKDIR /app/
 RUN pip install --upgrade pip
 COPY main/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
+
+# cron 
+CMD ["sudo", "cron", "-f"]
