@@ -113,3 +113,16 @@ checkはdfの取得と判定部分で分ける
 ファイル分けすぎな気がする
 model, sendmail以外全部mainに書いてもいい
 get_dfは分ける
+
+Disk Alert To Mail
+以下のディスクの容量が設定された制限を下回りました．
+
+ディスク名: test disk
+マウント先: /test/test
+使用率　　: 80%
+残り容量　: 50G
+
+ディスク名: test disk
+マウント先: /test/test
+使用率　　: 80%
+残り容量　: 50G
