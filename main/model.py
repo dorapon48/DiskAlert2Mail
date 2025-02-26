@@ -46,3 +46,7 @@ class DiskUseage(BaseModel):
     used: int
     available: int
     mounted_on: str
+
+class MailBody(BaseModel):
+    df: DiskUseage
+    config: DiskConfig

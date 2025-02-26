@@ -107,3 +107,9 @@ globalconfigの中にメールのコンフィグがあるのはおかしいか�
 2025/02/26
 判定部分を作る
 
+modelにdiskの判定に使用するクラスを追加
+dfがrootをスラッシュ抜きで表示するのでmountPathを空っぽにして例外処理
+checkはdfの取得と判定部分で分ける
+ファイル分けすぎな気がする
+model, sendmail以外全部mainに書いてもいい
+get_dfは分ける
