@@ -7,4 +7,4 @@ services:
     volumes:
       - ./main:/app
       - /:/mnt:ro
-    tty: true
+    restart: always

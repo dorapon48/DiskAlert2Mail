@@ -50,6 +50,9 @@ def check_disk(disk: DiskConfig, df_list: List[DiskUseage]):
     return -1
 
 def main():
+    """
+    main
+    """
     config = read_toml()
     df = get_df()
 
@@ -72,7 +75,6 @@ def main():
     send_mail(config.mail, msg, "Disk Alert to Mail")
     return 0
 
-    
 
 if __name__ == "__main__":
     main()
