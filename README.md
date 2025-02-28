@@ -75,4 +75,5 @@ docker compose -f docker-compose.prod.yml up
 
 ### `[[disks]]`
 - 設定ファイル内で複数の `[[disks]]` セクションを定義することで，複数のディスクを管理できます．
+- `mountPath`は`df`コマンドを実行した際の右端の`Mounted on`の項目をコピーしてください．
 - `diskUsageMaxLimit` は `[config]` の設定よりも個別の `[[disks]]` セクションに設定した値が優先されます．
