@@ -140,3 +140,6 @@ Availableはディスクを使い切ると0になるらしい
 何やその仕様は...
 修正した
 というか，Availableが残り残量みたいな感じ
+修正した
+テスト実行は以下
+ docker compose -f docker-compose.prod.yml run --rm --entrypoint python main /app/main.py
