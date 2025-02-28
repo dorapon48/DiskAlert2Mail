@@ -63,16 +63,16 @@ docker compose -f docker-compose.prod.yml up
 ## **詳細説明**
 
 ### `[config]`
-- サーバー全体の基本設定を記述します。
-- `diskUsageMaxLimit` は、ディスクの使用率がこの値を超えた場合に通知を送るための閾値です。
-- `serverName`、`serverIP`はメールの表示に使用します．
+- サーバー全体の基本設定を記述します．
+- `diskUsageMaxLimit` は，ディスクの使用率がこの値を超えた場合に通知を送るための閾値です．
+- `serverName`，`serverIP`はメールの表示に使用します．
 
 ### `[mail]`
-- メール送信の設定を記述します。
-- `smtpAddress` にはSMTPサーバーのアドレスを指定します（例: Gmailなら `"smtp.gmail.com"`）。
-- `smtpPort` は通常、`587`（TLS）または `465`（SSL）を使用します。
-- `smtpUser` と `smtpPassword` には認証情報を設定します。
+- メール送信の設定を記述します．
+- `smtpAddress` にはSMTPサーバーのアドレスを指定します（例: Gmailなら `"smtp.gmail.com"`）．
+- `smtpPort` は通常，`587`（TLS）または `465`（SSL）を使用します．
+- `smtpUser` と `smtpPassword` には認証情報を設定します．
 
 ### `[[disks]]`
-- 設定ファイル内で複数の `[[disks]]` セクションを定義することで、複数のディスクを管理できます。
-- `diskUsageMaxLimit` は `[config]` の設定よりも個別の `[[disks]]` セクションに設定した値が優先されます。
+- 設定ファイル内で複数の `[[disks]]` セクションを定義することで，複数のディスクを管理できます．
+- `diskUsageMaxLimit` は `[config]` の設定よりも個別の `[[disks]]` セクションに設定した値が優先されます．
