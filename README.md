@@ -29,7 +29,7 @@ docker compose -f docker-compose.prod.yml build
 docker compose -f docker-compose.prod.yml up
 ```
 
-# `config.toml` の設定項目説明
+# `d2m.toml` の設定項目説明
 このファイルはサーバーやディスクの設定，およびメール送信の設定を管理するためのTOML形式の設定ファイルです．
 
 ## **設定項目一覧**
