@@ -27,7 +27,7 @@ def create_mail_body_text(mail_body_list: List[MailBody], gconf: GlobalConfig):
         msg += "ディスク名: " + c.diskName + "\n"
         msg += "マウント先: " + mount_p + "\n"
         msg += "設定使用率: " + str(c.diskUsageMaxLimit) + "\n"
-        msg += "使用率　　: " + "{:.2f}".format((d.used / d.available) * 100) + "\n"
+        msg += "使用率　　: " + "{:.2f}".format(c_useage(d.used, d.available)) + "\n"
         msg += "残り容量　: " + str(re_amount) + "GB" + "\n"
         msg += "\n"
     return msg
@@ -41,13 +41,23 @@ def check_disk(disk: DiskConfig, df_list: List[DiskUseage]):
     """
     for index, df in enumerate(df_list):
         if (df.mounted_on == "/mnt" + disk.mountPath):
-            useage = (df.used / df.available) * 100
-            if (useage >= disk.diskUsageMaxLimit):
+            if (c_useage(df.used, df.available) >= disk.diskUsageMaxLimit):
                 return index
             else:
                 return -1
     print("waring: [" + disk.mountPath + "] disk does not exist")
     return -1
+
+def c_useage(used: int, available: int):
+    """
+    useageを計算する
+    """
+    if (available == 0):
+        useage = 100
+    else:
+        useage = (used / available) * 100
+    return useage
+
 
 def main():
     """
