@@ -21,7 +21,14 @@ cp d2m.toml.example d2m.toml
 `crontab`ファイルで起動頻度を設定できます．<br>
 初期設定では毎朝8:00にディスクの状態を確認します．
 
-## 5. dockerを起動
+## 5. テスト実行
+以下のコマンドでテスト実行できます．
+条件に該当するディスクがなければメールは送信されないため注意してください．(一時的に`diskUsageMaxLimit`を0にするといいかもしれません)
+```command
+docker compose -f docker-compose.prod.yml run --rm --entrypoint python main /app/main.py
+```
+
+## 6. dockerを起動
 `docker-compose.yml`は開発用です．<br>
 本番環境では`docker-compose.prod.yml`を起動してください．
 ```command
